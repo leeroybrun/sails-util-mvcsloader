@@ -1,0 +1,32 @@
+{
+  "name": "sails-hook-hookloader",
+  "version": "0.1.0",
+  "description": "Load models, controllers, services from your Sails hooks into the main app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leeroybrun/sails-hook-hookloader.git"
+  },
+  "keywords": [
+    "sails",
+    "sails-hook",
+    "loader"
+  ],
+  "author": "Leeroy Brun",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leeroybrun/sails-hook-hookloader/issues"
+  },
+  "homepage": "https://github.com/leeroybrun/sails-hook-hookloader",
+  "dependencies": {
+    "async": "^0.9.0",
+    "lodash": "^3.5.0",
+    "sails-build-dictionary": "^0.10.1"
+  },
+  "sails": {
+    "isHook": true
+  }
+}
