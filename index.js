@@ -15,70 +15,6 @@ module.exports = function(sails) {
 		return cb(null, modules);
 	};
 
-	// https://github.com/balderdashy/sails/blob/0d2c2751f120d56135abdb90f465fb9782277011/lib/hooks/orm/normalize-model.js
-	var _normalizeModel = function(modelDef, modelID) {
-		// Rebuild model definition merging the following
-	    // (in descending order of precedence):
-	    //
-	    // • explicit model def
-	    // • sails.config.models
-	    // • implicit framework defaults
-		var newModelDef = _.merge({
-			identity: modelID,
-			tableName: modelID
-		}, sails.config.models);
-		newModelDef = _.merge(newModelDef, modelDef);
-
-		// Keep an eye on merge's behavior w/ arrays here...
-		// just to be safe, do:
-		_.each(modelDef, function (val,key){
-			if (_.isArray(val)) {
-				newModelDef[key] = val;
-			}
-		});
-
-		// Merge in modelDef connection setting
-	    // (this is probably not necessary any more, see above-
-	    //  leaving it in for now to be safe)
-	    if (!newModelDef.connection && sails.config.models.connection) {
-	    	newModelDef.connection = sails.config.models.connection;
-	    }
-
-	    // If this is production, force `migrate: safe`!!
-		if (process.env.NODE_ENV === 'production' && newModelDef.migrate !== 'safe') {
-			newModelDef.migrate = 'safe';
-			sails.log.verbose(util.format('Forcing Waterline to use `migrate: "safe" strategy (since this is production)'));
-		}
-
-		// TODO: support backward compatibility ? https://github.com/balderdashy/sails/blob/0d2c2751f120d56135abdb90f465fb9782277011/lib/hooks/orm/normalize-model.js#L60-L69
-
-		////////////////////////////////////////////////////////////////////////
-	    // If it isn't set directly, set the model's `schema` property
-	    // based on the first adapter in its connections (left -> right)
-	    //
-	    // TODO: pull this out and into Waterline core
-	    // (this may already be the case- we need to try removing this and see
-	    //  if it still works)
-	    if (typeof newModelDef.schema === 'undefined') {
-	      var connection, schema;
-	      for (var i in newModelDef.connection) {
-	        connection = newModelDef.connection[i];
-	        // console.log('checking connection: ', connection);
-	        if (typeof connection.schema !== 'undefined') {
-	          schema = connection.schema;
-	          break;
-	        }
-	      }
-	      // console.log('trying to determine preference for schema setting..', newModelDef.schema, typeof modelDef.schema, typeof modelDef.schema !== 'undefined', schema);
-	      if (typeof schema !== 'undefined') {
-	        newModelDef.schema = schema;
-	      }
-	    }
-	    ////////////////////////////////////////////////////////////////////////
-
-	    return newModelDef;
-	};
-
 	return {
 
 		defaults: {},
@@ -172,23 +108,23 @@ module.exports = function(sails) {
 				},
 
 				function bindSupplementsToSails(models, supplements, next) {
-					_bindToSails(function(err, supplements) {
+					_bindToSails(supplements, function(err, supplements) {
 						if (err) { return cb(err); }
-						return cb(null, _.merge(models, supplements));
+						return next(null, _.merge(models, supplements));
 					});
 				},
 
 				function injectModelsIntoSails(modules, next) {
 					sails.models = _.extend(sails.models || {}, modules);
 
-					_.each(modules, function (model, identifier) {
-	    				sails.models[identifier] = _normalizeModel(model, identifier);
-					});
+					return next(null);
+				},
 
+				function reloadSailsORM(next) {
+					sails.hooks.orm.reload();
 
+					return next();
 				}
-
-				
 			], function(err) {
 				return cb(err);
 			});
@@ -196,6 +132,25 @@ module.exports = function(sails) {
 
 		injectServices: function(cb) {
 
-		}
+		},
+
+		injectAll: function(dir, cb) {
+			var self = this;
+
+			sails.on('hook:orm:loaded', function() {
+				self.injectModels(dir.models, function(err) {
+					if(err) { return sails.log.error(err); }
+					sails.log.info('User hook models loaded from '+ dir.models +'.');
+
+					self.injectControllers(dir.controllers, function(err) {
+						if(err) { sails.log.error(err); return cb(err); }
+
+						sails.log.info('User hook controllers loaded from '+ dir.models +'.');
+
+						return cb();
+					});
+				});
+			});
+		} 
 	}
 };
