@@ -1,6 +1,6 @@
 {
   "name": "sails-hook-hookloader",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Load models, controllers, services from your Sails hooks into the main app",
   "main": "index.js",
   "scripts": {
