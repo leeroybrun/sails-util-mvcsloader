@@ -1,0 +1,28 @@
+{
+  "name"           : "sails-hook-echo",
+  "version"        : "0.1.0",
+  "description"    : "Hook example for sails-hook-mvcsloader",
+  "main"           : "index.js",
+  "author"         : "Jimmy Aumard",
+  "keywords"       : [
+	"sails",
+	"sails.js",
+	"sails-hook",
+	"loader",
+	"mvc",
+	"hook"
+  ],
+  "repository"     : {
+	"type": "git",
+	"url" : "https://github.com/jaumard/sails-hook-echo"
+  },
+  "devDependencies": {
+	"sails": "~0.11.0"
+  },
+  "dependencies"   : {
+	"sails-util-mcvsloader": "~0.1.0"
+  },
+  "sails"          : {
+	"isHook": true
+  }
+}

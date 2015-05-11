@@ -22,11 +22,6 @@ module.exports = function (sails)
 
 		defaults : {},
 
-		initialize : function (cb)
-		{
-			return cb();
-		},
-
 		injectControllers : function (dir, cb)
 		{
 
