@@ -1,5 +1,5 @@
 var async = require('async');
-var _ = require('lodash');
+var _     = require('lodash');
 var buildDictionary = require('sails-build-dictionary');
 
 module.exports = function (sails)
@@ -52,7 +52,7 @@ module.exports = function (sails)
 				function registerControllers(modules, next)
 				{
 					// Extends sails.controllers with new ones
-					sails.controllers = _.merge(sails.controllers || {}, modules);
+					sails.controllers = _.merge(modules || {}, sails.controllers || {});
 
 					// Loop through each controllers and register them
 					_.each(modules, function (controller, controllerId)
@@ -138,7 +138,7 @@ module.exports = function (sails)
 
 				function injectModelsIntoSails(modules, next)
 				{
-					sails.models = _.merge(sails.models || {}, modules);
+					sails.models = _.merge(modules || {}, sails.models || {});
 
 					return next(null);
 				},
@@ -174,7 +174,7 @@ module.exports = function (sails)
 
 				function injectServicesIntoSails(modules, next)
 				{
-					sails.services = _.merge(sails.services || {}, modules);
+					sails.services = _.merge(modules || {}, sails.services || {});
 					if (sails.config.globals.services)
 					{
 						_.each(modules, function (service, serviceId)
