@@ -21,7 +21,10 @@ npm install --save sails-util-mvcsloader
 ```
 module.exports = function(sails) {
     var hookLoader = require('sails-hook-hookloader')(sails);
-    hookLoader.injectPolicies(__dirname+'/policies');// Path to your hook's policies
+    hookLoader.injectAll({
+    		policies : __dirname + '/policies',// Path to your hook's policies
+    		config   : __dirname + '/config'// Path to your hook's config
+    	});
     return {    
       initialize: function(cb) {
         hookLoader.injectAll({
