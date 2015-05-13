@@ -2,7 +2,7 @@
  * Created by jaumard on 12/05/2015.
  */
 var buildDictionary = require('sails-build-dictionary');
-module.exports      = function (sails, dir, cb)
+module.exports = function (sails, dir)
 {
 	buildDictionary.aggregate({
 		dirname     : dir,
@@ -12,13 +12,6 @@ module.exports      = function (sails, dir, cb)
 		identity    : false
 	}, function (err, configs)
 	{
-		if (err)
-		{
-			return cb(err);
-		}
-
 		sails.config = sails.util.merge(configs, sails.config);
-
-		cb();
 	});
 };

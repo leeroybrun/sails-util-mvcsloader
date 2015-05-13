@@ -64,10 +64,9 @@ module.exports = function (sails)
 			 });
 			 */
 		},
-		injectConfig   : function (dir, cb)
+		injectConfig : function (dir)
 		{
-			require(__dirname + "/libs/config")(sails, dir, cb);
-
+			require(__dirname + "/libs/config")(sails, dir);
 		},
 
 		injectControllers : function (dir, cb)
@@ -129,31 +128,21 @@ module.exports = function (sails)
 					return next(null);
 				});
 			};
-			var loadConfig = function (next)
-			{
-				self.injectConfig(dir.config, function (err)
-				{
-					if (err)
-					{
-						return next(err);
-					}
-					sails.log.info('User hook config loaded from ' + dir.config + '.');
-					return next(null);
-				});
-			};
 			if (dir.policies)
 			{
 				self.injectPolicies(dir.policies);
-				sails.log.warn('User hook policies need to be loaded before initialize method of your hook, see injectPolicies');
+				sails.log.info('User hook policies loaded from ' + dir.policies + '.');
+			}
+			if (dir.config)
+			{
+				self.injectConfig(dir.config);
+				sails.log.info('User hook config loaded from ' + dir.config + '.');
 			}
 
 			sails.on('hook:orm:loaded', function ()
 			{
 				var toLoad = [];
-				if (dir.config)
-				{
-					toLoad.push(loadConfig);
-				}
+
 				if (dir.models)
 				{
 					toLoad.push(loadModels);
@@ -174,7 +163,10 @@ module.exports = function (sails)
 					{
 						sails.log.error(err);
 					}
-					return cb(err);
+					if (cb)
+					{
+						cb(err);
+					}
 				});
 			});
 		}

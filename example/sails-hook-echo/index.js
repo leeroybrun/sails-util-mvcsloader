@@ -5,7 +5,10 @@
 module.exports = function (sails)
 {
 	var loader = require("sails-hook-hookloader")(sails);
-	loader.injectPolicies(__dirname + '/policies'); // Path to your hook's policies
+	loader.injectAll({
+		policies : __dirname + '/policies',// Path to your hook's policies
+		config   : __dirname + '/config'// Path to your hook's config
+	});
 
 
 	return {
@@ -15,8 +18,7 @@ module.exports = function (sails)
 			loader.injectAll({
 				controllers : __dirname + '/controllers', // Path to your hook's controllers
 				models      : __dirname + '/models', // Path to your hook's models
-				services : __dirname + '/services', // Path to your hook's services
-				config   : __dirname + '/config' // Path to your hook's config
+				services : __dirname + '/services' // Path to your hook's services
 			}, function (err)
 			{
 				return next(err);
