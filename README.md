@@ -4,14 +4,8 @@ Load the models, controllers, services, policies and config from your Sails hook
 ### USAGE
  Look the example folder.
  
- Add on your hook package.json the dependency : 
+ Install it on your installable hook folder : 
  
-```
-"sails-util-mvcsloader" : "~0.1.4"
-```
-
-or
-
 ```
 npm install --save sails-util-mvcsloader
 ```

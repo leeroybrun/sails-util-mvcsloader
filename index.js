@@ -11,58 +11,6 @@ module.exports = function (sails)
 		injectPolicies : function (dir)
 		{
 			require(__dirname + "/libs/policies")(sails, dir);
-			/*
-			 async.waterfall([// Load controllers from the given directory
-			 function loadPoliciesFromDirectory(next)
-			 {
-			 buildDictionary.optional({
-			 dirname            : dir,
-			 filter             : /^([^.]+)\.(js|coffee|litcoffee)$/,
-			 flattenDirectories : true,
-			 keepDirectoryPath  : true,
-			 replaceExpr        : /Controller/
-			 }, next);
-			 }, // Register policies on the main "policies" hook
-			 function registerPolicies(modules, next)
-			 {
-			 // Extends sails.policies with new ones
-			 //sails.config.policies = _.merge(modules || {}, sails.config.policies || {});
-			 var policies = require(dir + "/config.json");
-
-			 _.each(modules, function (policy, policyId)
-			 {
-			 sails.hooks.policies.middleware[policyId] = policy;
-			 });
-			 _.each(policies, function (policy, policyId)
-			 {
-			 policyId = util.normalizeControllerId(policyId);
-			 _.each(policy, function (action, actionID)
-			 {
-			 sails.hooks.policies.mapping[policyId] = {};
-			 if (util.isArray(action))
-			 {
-			 var actions = [];
-			 for (var i = 0; i < action.length; i++)
-			 {
-			 var act = action[i].toLowerCase();
-			 actions.push(sails.hooks.policies.middleware[act]);
-			 }
-			 sails.hooks.policies.mapping[policyId][actionID] = actions;
-			 }
-			 else
-			 {
-			 sails.hooks.policies.mapping[policyId][actionID] = [sails.hooks.policies.middleware[action.toLowerCase()]];
-			 }
-
-			 });
-
-			 });
-			 next();
-			 }], function (err)
-			 {
-			 cb(err);
-			 });
-			 */
 		},
 		injectConfig : function (dir)
 		{
