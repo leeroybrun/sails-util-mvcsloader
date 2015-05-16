@@ -3,8 +3,8 @@
  */
 
 module.exports = {
-	attributes : {
-		name    : 'string',
-		version : 'string'
-	}
+    attributes: {
+        name: 'string',
+        version: 'string'
+    }
 };
