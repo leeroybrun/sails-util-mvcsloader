@@ -3,7 +3,7 @@
  */
 
 module.exports = function (sails) {
-    var loader = require("sails-hook-hookloader")(sails);
+    var loader = require("sails-util-mvcsloader")(sails);
     loader.injectAll({
         policies: __dirname + '/policies',// Path to your hook's policies
         config: __dirname + '/config'// Path to your hook's config
