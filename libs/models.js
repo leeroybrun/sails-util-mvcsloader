@@ -4,7 +4,6 @@
 var async = require('async');
 var _ = require('lodash');
 var buildDictionary = require('sails-build-dictionary');
-var utils = require(__dirname + '/utils.js');
 
 module.exports = function (sails, dir, cb) {
     async.waterfall([function loadModelsFromDirectory(next) {
@@ -25,13 +24,6 @@ module.exports = function (sails, dir, cb) {
             if (err) {
                 return cb(err);
             }
-            return next(null, models, supplements);
-        });
-    }, function bindSupplementsToSails(models, supplements, next) {
-        utils._bindToSails(sails, supplements, function (err, supplements) {
-            if (err) {
-                return cb(err);
-            }
             return next(null, _.merge(models, supplements));
         });
     }, function injectModelsIntoSails(modules, next) {
@@ -39,7 +31,16 @@ module.exports = function (sails, dir, cb) {
 
         return next(null);
     }, function reloadSailsORM(next) {
-        sails.hooks.orm.reload();
+        if (!sails.config.mvcsloader || (sails.config.mvcsloader && sails.config.mvcsloader.reloadORM)) {
+            var d = require('domain').create();
+            d.on('error', function (err) {
+                // handle the error safely
+                sails.log.error("mvcs-loader error, you have multiple hooks that try to reload orm, look here (https://github.com/jaumard/sails-util-mvcsloader/#troubles) to disable orm reload and do it manually on your bootstrap.js");
+            });
+            d.run(function () {
+                sails.hooks.orm.reload();
+            });
+        }
 
         return next(null);
     }], function (err) {

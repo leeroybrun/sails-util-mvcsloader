@@ -4,7 +4,6 @@
 var async = require('async');
 var _ = require('lodash');
 var buildDictionary = require('sails-build-dictionary');
-var utils = require(__dirname + '/utils.js');
 module.exports = function (sails, dir, cb) {
     async.waterfall([function loadServicesFromDirectory(next) {
         buildDictionary.optional({
@@ -13,8 +12,6 @@ module.exports = function (sails, dir, cb) {
             replaceExpr: /^.*\//,
             flattenDirectories: true
         }, next);
-    }, function bindServicesToSails(modules, next) {
-        utils._bindToSails(sails, modules, next);
     }, function injectServicesIntoSails(modules, next) {
         sails.services = _.merge(modules || {}, sails.services || {});
         if (sails.config.globals.services) {

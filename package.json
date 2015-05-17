@@ -1,7 +1,7 @@
 {
   "name"        : "sails-util-mvcsloader",
-  "version"     : "0.1.5",
-  "description" : "Load models, controllers, services, policies and config from your Sails hooks into the main app",
+  "version": "0.1.6",
+  "description": "Load the models, controllers, services, policies and config from your Sails hooks into the main app and extend it on your main sails server if you need",
   "main"        : "index.js",
   "scripts"     : {
 	"test": "echo \"Error: no test specified\" && exit 1"
@@ -14,7 +14,17 @@
 	"sails",
 	"sails-hook",
 	"loader",
-	"mvc"
+    "mvc",
+    "hook-models",
+    "hook-controllers",
+    "hook-services",
+    "hook-config",
+    "hook-policies",
+    "models",
+    "controllers",
+    "services",
+    "config",
+    "policies"
   ],
   "author"      : "Leeroy Brun, Aumard Jimmy",
   "license"     : "MIT",

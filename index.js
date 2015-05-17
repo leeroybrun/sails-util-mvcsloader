@@ -81,7 +81,7 @@ module.exports = function (sails) {
                     toLoad.push(loadServices);
                 }
 
-                async.waterfall(toLoad, function (err) {
+                async.parallel(toLoad, function (err) {
                     if (err) {
                         sails.log.error(err);
                     }
