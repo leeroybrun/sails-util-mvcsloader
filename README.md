@@ -42,7 +42,7 @@ If you use multiple hooks how use this module you will have this error :
     error: Failed to reinitialize ORM.
     error: AdapterError: Connection is already registered
 
-To fix this just create a config/mvcsloarder.js with : 
+To fix this just create a config/mvcsloader.js with : 
 
     module.exports.mvcsloader = {
         reloadORM : false
