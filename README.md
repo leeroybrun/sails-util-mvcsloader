@@ -36,22 +36,6 @@ module.exports = function(sails) {
 ### USED BY 
 [sails-hook-passport](https://github.com/jaumard/sails-hook-passport)
 
-### TROUBLES 
-If you use multiple hooks how use this module you will have this error : 
-
-    error: Failed to reinitialize ORM.
-    error: AdapterError: Connection is already registered
-
-To fix this just create a config/mvcsloarder.js with : 
-
-    module.exports.mvcsloader = {
-        reloadORM : false
-    };
-
-And add this on your config/bootstrap.js
-
-    sails.hooks.orm.reload();
-
 ### TODO
 - Add support for loading :
     - Views

@@ -1,6 +1,6 @@
 {
   "name"        : "sails-util-mvcsloader",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Load the models, controllers, services, policies and config from your Sails hooks into the main app and extend it on your main sails server if you need",
   "main"        : "index.js",
   "scripts"     : {
@@ -12,7 +12,8 @@
   },
   "keywords"    : [
 	"sails",
-	"sails-hook",
+    "sails-hook",
+    "hook",
 	"loader",
     "mvc",
     "hook-models",

@@ -67,28 +67,26 @@ module.exports = function (sails) {
                 sails.log.info('User hook config loaded from ' + dir.config + '.');
             }
 
-            sails.on('hook:orm:loaded', function () {
-                var toLoad = [];
+            var toLoad = [];
 
-                if (dir.models) {
-                    toLoad.push(loadModels);
-                }
-                if (dir.controllers) {
-                    toLoad.push(loadControllers);
-                }
+            if (dir.models) {
+                toLoad.push(loadModels);
+            }
+            if (dir.controllers) {
+                toLoad.push(loadControllers);
+            }
 
-                if (dir.services) {
-                    toLoad.push(loadServices);
-                }
+            if (dir.services) {
+                toLoad.push(loadServices);
+            }
 
-                async.parallel(toLoad, function (err) {
-                    if (err) {
-                        sails.log.error(err);
-                    }
-                    if (cb) {
-                        cb(err);
-                    }
-                });
+            async.parallel(toLoad, function (err) {
+                if (err) {
+                    sails.log.error(err);
+                }
+                if (cb) {
+                    cb(err);
+                }
             });
         }
     }
