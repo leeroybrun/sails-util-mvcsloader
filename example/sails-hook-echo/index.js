@@ -4,22 +4,32 @@
 
 module.exports = function (sails) {
     var loader = require("sails-util-mvcsloader")(sails);
-    loader.injectAll({
-        policies: __dirname + '/policies',// Path to your hook's policies
-        config: __dirname + '/config'// Path to your hook's config
-    });
+    loader.configure(); // Load policies and config
 
+    /*
+     OR if you want to set custom path :
+     loader.configure({
+     policies: __dirname + '/api/policies',// Path to your hook's policies
+     config: __dirname + '/config'// Path to your hook's config
+     });
+     */
 
     return {
-        // Run when sails loads-- be sure and call `next()`.
         initialize: function (next) {
-            loader.injectAll({
-                controllers: __dirname + '/controllers', // Path to your hook's controllers
-                models: __dirname + '/models', // Path to your hook's models
-                services: __dirname + '/services' // Path to your hook's services
-            }, function (err) {
+            loader.adapt(function (err) {
                 return next(err);
             });
+
+            /*
+             OR if you want to set custom path :
+             loader.adapt(function (err) {
+             return next(err);
+             },{
+             controllers: __dirname + '/api/controllers', // Path to your hook's controllers
+             models: __dirname + '/api/models', // Path to your hook's models
+             services: __dirname + '/api/services' // Path to your hook's services
+             });
+             */
         }
     };
 };

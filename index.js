@@ -25,6 +25,27 @@ module.exports = function (sails) {
             require(__dirname + "/libs/services")(sails, dir, cb);
         },
 
+        configure: function (dir) {
+            if (!dir) {
+                dir = {
+                    config: __dirname + '/../../config',
+                    policies: __dirname + '/../../api/policies'
+                };
+            }
+            this.injectAll(dir);
+        },
+
+        adapt: function (next, dir) {
+            if (!dir) {
+                dir = {
+                    models: __dirname + '/../../api/models',
+                    controllers: __dirname + '/../../api/controllers',
+                    services: __dirname + '/../../api/services'
+                };
+            }
+            this.injectAll(dir, next);
+        },
+
         injectAll: function (dir, cb) {
             var self = this;
 
