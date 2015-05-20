@@ -1,9 +1,42 @@
-# sails-hook-hookloader
-Load the models, controllers, services from your Sails hooks into the main app
+# sails-util-mvcsloader
+Load the models, controllers, services, policies and config from your Sails hooks into the main app and extend it on your main sails server if you need
+
+### USAGE
+ Look the example folder.
+ 
+ Install it on your installable hook folder : 
+ 
+```
+npm install --save sails-util-mvcsloader
+```
+ 
+ Then use it like this in your hook's index.js :
+  
+```
+module.exports = function(sails) {
+    var hookLoader = require('sails-util-mvcsloader')(sails);
+    hookLoader.injectAll({
+    		policies : __dirname + '/policies',// Path to your hook's policies
+    		config   : __dirname + '/config'// Path to your hook's config
+    	});
+    return {    
+      initialize: function(cb) {
+        hookLoader.injectAll({
+          controllers: __dirname+'/controllers', // Path to your hook's controllers
+          models: __dirname+'/models', // Path to your hook's models
+          services: __dirname+'/services' // Path to your hook's services
+        }, function(err) {
+          return cb();
+        });
+      }
+    }
+ }
+```
+
+### USED BY 
+[sails-hook-passport](https://github.com/jaumard/sails-hook-passport)
 
 ### TODO
-
-- Check if a model already defined in main app can be extended from hook
-- Try to install as external hook (from npm) in sails app and use sails.hooks.hookloader
 - Add support for loading :
-    - Services
+    - Views
+    - Assets

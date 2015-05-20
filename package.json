@@ -1,32 +1,42 @@
 {
-  "name": "sails-hook-hookloader",
-  "version": "0.2.0",
-  "description": "Load models, controllers, services from your Sails hooks into the main app",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "name"        : "sails-util-mvcsloader",
+  "version": "0.1.7",
+  "description": "Load the models, controllers, services, policies and config from your Sails hooks into the main app and extend it on your main sails server if you need",
+  "main"        : "index.js",
+  "scripts"     : {
+	"test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/leeroybrun/sails-hook-hookloader.git"
+  "repository"  : {
+	"type": "git",
+	"url" : "https://github.com/jaumard/sails-util-mcvsloader.git"
   },
-  "keywords": [
-    "sails",
+  "keywords"    : [
+	"sails",
     "sails-hook",
-    "loader"
+    "hook",
+	"loader",
+    "mvc",
+    "hook-models",
+    "hook-controllers",
+    "hook-services",
+    "hook-config",
+    "hook-policies",
+    "models",
+    "controllers",
+    "services",
+    "config",
+    "policies"
   ],
-  "author": "Leeroy Brun",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/leeroybrun/sails-hook-hookloader/issues"
+  "author"      : "Leeroy Brun, Aumard Jimmy",
+  "license"     : "MIT",
+  "bugs"        : {
+	"url": "https://github.com/jaumard/sails-util-mvcsloader/issues"
   },
-  "homepage": "https://github.com/leeroybrun/sails-hook-hookloader",
+  "homepage"    : "https://github.com/jaumard/sails-util-mvcsloader",
   "dependencies": {
-    "async": "^0.9.0",
-    "lodash": "^3.5.0",
-    "sails-build-dictionary": "^0.10.1"
-  },
-  "sails": {
-    "isHook": true
+	"async"                 : "^0.9.0",
+	"lodash"                : "^3.5.0",
+	"sails-build-dictionary": "^0.10.1",
+	"sails-util"            : "^0.10.6"
   }
 }
