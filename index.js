@@ -6,7 +6,7 @@ module.exports = function (sails) {
         console.log('Warning! The Sails app injected into sails-util-mvcsloader seems invalid.');
     }
 
-    return {
+    var Loader = {
 
         defaults: {},
 
@@ -136,5 +136,10 @@ module.exports = function (sails) {
                 }
             });
         }
-    }
+    };
+
+    // Backward compatibility
+    Loader.adapt = Loader.inject;
+
+    return Loader;
 };
