@@ -1,7 +1,7 @@
 {
   "name": "sails-util-mvcsloader",
   "version": "0.1.8",
-  "description": "Load the models, controllers, services, policies and config from your Sails hooks into the main app and extend it on your main sails server if you need",
+  "description": "Load models, controllers, services, policies and config from specified directories and inject them into the main Sails app.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,6 +11,9 @@
     "url": "https://github.com/leeroybrun/sails-util-mvcsloader"
   },
   "keywords": [
+    "sails hook loader",
+    "sails plugins system",
+    "plugins",
     "sails",
     "sails-hook",
     "hook",
@@ -28,6 +31,15 @@
     "policies"
   ],
   "author": "Leeroy Brun, Aumard Jimmy",
+  "contributors": [
+    {
+      "name": "Leeroy Brun",
+      "email": "leeroy.brun@gmail.com"
+    },
+    {
+      "name": "Aumard Jimmy"
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/leeroybrun/sails-util-mvcsloader/issues"

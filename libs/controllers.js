@@ -1,10 +1,11 @@
 /**
- * Created by jaumard on 12/05/2015.
+ * Load controllers from a directory into a Sails app
  */
+
 var async = require('async');
 var _ = require('lodash');
 var buildDictionary = require('sails-build-dictionary');
-var utils = require(__dirname + '/utils.js');
+var utils = require(__dirname + '/utils');
 
 module.exports = function (sails, dir, cb) {
     async.waterfall([// Load controllers from the given directory

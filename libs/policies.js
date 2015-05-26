@@ -1,13 +1,15 @@
 /**
- * Created by jaumard on 12/05/2015.
+ * Load policies from a directory into a Sails app
  */
-var _ = require('lodash'), loadPolicies = require(__dirname + '/sails/_loadPolicies');
+
+var _ = require('lodash');
+var loadPolicies = require(__dirname + '/sails/_loadPolicies');
+
 module.exports = function (sails, dir) {
-    //Adaptation needed for policies
+    // Adaptation needed for policies
     if (_.isArray(sails.config.paths.policies)) {
         sails.config.paths.policies.push(dir);
-    }
-    else {
+    } else {
         sails.config.paths.policies = [sails.config.paths.policies, dir];
     }
 

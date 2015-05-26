@@ -1,6 +1,7 @@
 /**
- * Created by jaumard on 12/05/2015.
+ * Load models from a directory into a Sails app
  */
+
 var buildDictionary = require('sails-build-dictionary');
 
 module.exports = function (sails, dir, cb) {
@@ -13,6 +14,7 @@ module.exports = function (sails, dir, cb) {
         if (err) {
             return cb(err);
         }
+        
         // Get any supplemental files
         buildDictionary.optional({
             dirname: dir,

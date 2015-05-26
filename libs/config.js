@@ -1,7 +1,9 @@
 /**
- * Created by jaumard on 12/05/2015.
+ * Load config from a directory into a Sails app
  */
+
 var buildDictionary = require('sails-build-dictionary');
+
 module.exports = function (sails, dir) {
     buildDictionary.aggregate({
         dirname: dir,

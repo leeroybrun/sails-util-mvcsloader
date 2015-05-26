@@ -8,6 +8,6 @@ module.exports = {
      * @param res
      */
     test: function (req, res) {
-        console.log("test method on ExampleService");
+        console.log('test method on ExampleService');
     }
 };
