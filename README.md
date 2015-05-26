@@ -146,6 +146,8 @@ Here is a complete example. It's the index.js file of a Sails hook.
 For now, we use 4 spaces instead of 2.  
 For the rest, please follow the [Felix's Node.js Style Guide](https://github.com/felixge/node-style-guide).
 
+We use [semantic versioning](https://docs.npmjs.com/getting-started/semantic-versioning) for the NPM package.
+
 ### Contributors
 
 - [Leeroy Brun](https://github.com/leeroybrun)
