@@ -3,7 +3,7 @@
  */
 
 var buildDictionary = require('sails-build-dictionary');
-
+var _ = require('lodash');
 module.exports = function (sails, dir) {
     buildDictionary.aggregate({
         dirname: dir,
@@ -12,6 +12,10 @@ module.exports = function (sails, dir) {
         filter: /(.+)\.(js|json|coffee|litcoffee)$/,
         identity: false
     }, function (err, configs) {
-        sails.config = sails.util.merge(configs, sails.config);
+        sails.config = _.merge(configs, sails.config, function (a, b) {
+            if (_.isArray(a)) {
+                return a.concat(b);
+            }
+        });
     });
 };
