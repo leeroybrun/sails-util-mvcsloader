@@ -1,6 +1,8 @@
 var async = require('async');
 
-module.exports = function (sails) {
+
+module.exports = function (sails, options) {
+    options = options || require(__dirname + '/libs/defaultOptions');
 
     if(!sails) {
         console.log('Warning! The Sails app injected into sails-util-mvcsloader seems invalid.');
@@ -14,19 +16,19 @@ module.exports = function (sails) {
             require(__dirname + '/libs/policies')(sails, dir);
         },
         injectConfig: function (dir) {
-            require(__dirname + '/libs/config')(sails, dir);
+            require(__dirname + '/libs/config')(sails, dir, options);
         },
 
         injectControllers: function (dir, cb) {
-            require(__dirname + '/libs/controllers')(sails, dir, cb);
+            require(__dirname + '/libs/controllers')(sails, dir, options, cb);
         },
 
         injectModels: function (dir, cb) {
-            require(__dirname + '/libs/models')(sails, dir, cb);
+            require(__dirname + '/libs/models')(sails, dir, options, cb);
         },
 
         injectServices: function (dir, cb) {
-            require(__dirname + '/libs/services')(sails, dir, cb);
+            require(__dirname + '/libs/services')(sails, dir, options, cb);
         },
 
         // Inject config and policies synchronously into the Sails app

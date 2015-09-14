@@ -3,8 +3,13 @@
  */
 
 var buildDictionary = require('sails-build-dictionary');
+var defaultOptions = require(__dirname + '/defaultOptions');
 
-module.exports = function (sails, dir, cb) {
+module.exports = function (sails, dir, options, cb) {
+    options = options || defaultOptions;
+    cb = (typeof options === 'function' && !cb) ? options : cb; // No options, but callback instead
+    cb = cb || function(){};
+    
     buildDictionary.optional({
         dirname: dir,
         filter: /^([^.]+)\.(js|coffee|litcoffee)$/,
@@ -27,7 +32,12 @@ module.exports = function (sails, dir, cb) {
             }
 
             var finalModels = sails.util.merge(models, supplements);
-            sails.models = sails.util.merge(finalModels || {}, sails.models || {});
+
+            if(options.mergingOrder === 'hook-app') {
+                sails.models = sails.util.merge(finalModels || {}, sails.models || {});
+            } else {
+                sails.models = sails.util.merge(sails.models || {}, finalModels || {});
+            }
 
             cb();
         });

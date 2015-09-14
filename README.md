@@ -43,6 +43,18 @@ In your hook's index.js file, require the module and pass your Sails app as firs
         };
     };
 
+### Options
+
+You can also pass an options object as second argument :
+
+    var loader = require('sails-util-mvcsloader')(sails, { mergingOrder: 'hook-app' });
+
+Here are the available options :
+
+- `mergingOrder`: define how to merge objects (models, controllers, etc)
+    - `hook-app`: hook methods/properties will be overridden with the app ones (default)
+    - `app-hook`: app methods/properties will be overridden with the hook ones
+
 
 ### Loading config / policies
 
@@ -158,4 +170,5 @@ We use [semantic versioning](https://docs.npmjs.com/getting-started/semantic-ver
     - Views
     - Assets
 - Add tests
+- Support different merging orders for controllers
 - Add Grunt for auto-JSHint & tests

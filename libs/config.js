@@ -4,7 +4,11 @@
 
 var buildDictionary = require('sails-build-dictionary');
 var _ = require('lodash');
-module.exports = function (sails, dir) {
+var defaultOptions = require(__dirname + '/defaultOptions');
+
+module.exports = function (sails, dir, options) {
+    options = options || defaultOptions;
+    
     buildDictionary.aggregate({
         dirname: dir,
         exclude: ['locales', 'local.js', 'local.json', 'local.coffee', 'local.litcoffee'],
@@ -12,10 +16,16 @@ module.exports = function (sails, dir) {
         filter: /(.+)\.(js|json|coffee|litcoffee)$/,
         identity: false
     }, function (err, configs) {
-        sails.config = _.merge(configs, sails.config, function (a, b) {
+        var afterMergeCb = function (a, b) {
             if (_.isArray(a)) {
                 return a.concat(b);
             }
-        });
+        };
+
+        if(options.mergingOrder === 'hook-app') {
+            sails.config = _.merge(configs, sails.config, afterMergeCb);
+        } else {
+            sails.config = _.merge(sails.config, configs, afterMergeCb);
+        }
     });
 };

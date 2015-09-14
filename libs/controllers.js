@@ -2,12 +2,19 @@
  * Load controllers from a directory into a Sails app
  */
 
+// TODO: support different merging orders for controller methods
+
 var async = require('async');
 var _ = require('lodash');
 var buildDictionary = require('sails-build-dictionary');
 var utils = require(__dirname + '/utils');
+var defaultOptions = require(__dirname + '/defaultOptions');
 
-module.exports = function (sails, dir, cb) {
+module.exports = function (sails, dir, options, cb) {
+    options = options || defaultOptions;
+    cb = (typeof options === 'function' && !cb) ? options : cb; // No options, but callback instead
+    cb = cb || function(){};
+
     async.waterfall([// Load controllers from the given directory
         function loadModulesFromDirectory(next) {
             buildDictionary.optional({
