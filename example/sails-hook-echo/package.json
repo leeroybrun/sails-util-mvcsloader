@@ -20,7 +20,7 @@
     "sails": "~0.11.0"
   },
   "dependencies": {
-    "sails-util-mvcsloader": "~0.1.6"
+    "sails-util-mvcsloader": "~0.3.0"
   },
   "sails": {
     "isHook": true
