@@ -1,6 +1,6 @@
 {
   "name": "sails-util-mvcsloader",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Load models, controllers, services, policies and config from specified directories and inject them into the main Sails app.",
   "main": "index.js",
   "scripts": {
