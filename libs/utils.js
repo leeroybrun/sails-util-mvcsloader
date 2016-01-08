@@ -1,7 +1,7 @@
 /**
  * Created by jaumard on 12/05/2015.
  */
- var _ = require('lodash');
+var _ = require('lodash');
  
 module.exports = {
     _bindToSails: function (sails, modules, cb) {
