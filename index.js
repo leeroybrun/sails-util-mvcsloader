@@ -87,7 +87,7 @@ module.exports = function (sails) {
                         return next(err);
                     }
 
-                    sails.log.info('User hook controllers loaded from ' + dir.models + '.');
+                    sails.log.info('User hook controllers loaded from ' + dir.controllers + '.');
 
                     return next(null);
                 });
