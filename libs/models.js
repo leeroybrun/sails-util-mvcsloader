@@ -14,7 +14,7 @@ module.exports = function (sails, dir, cb) {
         if (err) {
             return cb(err);
         }
-        
+
         // Get any supplemental files
         buildDictionary.optional({
             dirname: dir,
@@ -27,8 +27,13 @@ module.exports = function (sails, dir, cb) {
             }
 
             var finalModels = sails.util.merge(models, supplements);
-            sails.hooks.orm.models = sails.util.merge(finalModels || {}, sails.hooks.orm.models || {});
-            sails.models = sails.util.merge(finalModels || {}, sails.models || {});
+
+            if(sails.hooks && sails.hooks.orm){
+              sails.hooks.orm.models = sails.util.merge(finalModels || {}, sails.hooks.orm.models || {});
+              sails.models = sails.util.merge(finalModels || {}, sails.models || {});
+            }else {
+              sails.models = sails.util.merge(finalModels || {}, sails.models || {});
+            }
 
             cb();
         });
